@@ -8,24 +8,12 @@ import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.H1
 import org.jetbrains.compose.web.dom.Span
 import org.jetbrains.compose.web.dom.Text
-import org.jetbrains.compose.web.renderComposable
+import org.jetbrains.compose.web.renderComposableInBody
 
-@JsModule("./styles.css")
-@JsNonModule
-external val cssFile: dynamic
-
-@JsModule("daisyui")
-@JsNonModule
-external val daisyUi: dynamic
 
 fun main() {
-    cssFile
-    daisyUi
-
-    var count by mutableStateOf(0)
-
-    renderComposable(rootElementId = "root") {
-
+    renderComposableInBody {
+        var count by mutableStateOf(0)
         Div({ classes("container", "mx-auto", "bg-red-700") }) {
             // Content
             H1 {

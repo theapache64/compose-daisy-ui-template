@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="compose-multiplatform-html-library-template-js">
+    <output-path>$PROJECT_DIR$/build/libs</output-path>
+    <root id="archive" name="compose-multiplatform-html-library-template-js.jar">
+      <element id="module-output" name="compose-multiplatform-html-library-template.jsMain" />
+    </root>
+  </artifact>
+</component>
