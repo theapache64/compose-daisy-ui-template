@@ -5,14 +5,42 @@ import org.jetbrains.compose.web.css.padding
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.Button
 import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.dom.H1
 import org.jetbrains.compose.web.dom.Span
 import org.jetbrains.compose.web.dom.Text
 import org.jetbrains.compose.web.renderComposable
 
+@JsModule("./styles.css")
+@JsNonModule
+external val cssFile: dynamic
+
+@JsModule("daisyui")
+@JsNonModule
+external val daisyUi: dynamic
+
 fun main() {
+    cssFile
+    daisyUi
+
     var count by mutableStateOf(0)
 
     renderComposable(rootElementId = "root") {
+
+        Div({ classes("container", "mx-auto", "bg-red-700") }) {
+            // Content
+            H1 {
+                Text("Hello World!")
+            }
+        }
+
+        Button(
+            attrs = {
+                classes("btn", "btn-primary")
+            }
+        ) {
+            Text("Hello DaisyUI!")
+        }
+
         Div({ style { padding(25.px) } }) {
             Button(attrs = {
                 onClick { count -= 1 }
