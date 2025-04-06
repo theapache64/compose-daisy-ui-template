@@ -171,3 +171,5 @@ gradle-app.setting
 build
 gpm.json
 .kotlin
+
+.DS_Store
