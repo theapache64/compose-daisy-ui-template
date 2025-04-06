@@ -30,7 +30,7 @@ kotlin {
                 implementation(npm("@tailwindcss/typography", "0.5.10"))
                 implementation(npm("@tailwindcss/forms", "0.5.7")) // optional
 
-                implementation(npm("daisyui", "latest"))
+                implementation(npm("daisyui", "4.6.0"))
 
             }
         }
