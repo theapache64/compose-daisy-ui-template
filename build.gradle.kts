@@ -1,7 +1,7 @@
 plugins {
-    kotlin("multiplatform").version("2.1.0")
-    kotlin("plugin.compose").version("2.1.0")
-    id("org.jetbrains.compose").version("1.7.3")
+    kotlin("multiplatform").version("2.3.21")
+    kotlin("plugin.compose").version("2.3.21")
+    id("org.jetbrains.compose").version("1.11.0")
 }
 
 kotlin {
@@ -30,7 +30,7 @@ kotlin {
                 implementation(devNpm("css-loader", "7.1.2"))
 
                 // DaisyUI
-                // implementation(npm("daisyui", "5.0.12"))
+                implementation(npm("daisyui", "5.0.12"))
             }
         }
     }

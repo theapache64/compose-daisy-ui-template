@@ -1,9 +1,25 @@
+const path = require('path');
 const mainCssFile = 'styles.css';
-const buildDirectory = '../../../'
-const entryPath = buildDirectory + 'processedResources/js/main/' + mainCssFile;
+const entryPath = path.resolve(__dirname, 'kotlin', mainCssFile);
+const jsBuildDirectory = path.resolve(__dirname, '../..');
+const nodeModulesDirectory = path.resolve(jsBuildDirectory, 'node_modules');
+
+const resolveTailwindPluginsFromKotlinJsNodeModules = {
+  postcssPlugin: 'resolve-tailwind-plugins-from-kotlin-js-node-modules',
+  Once(root) {
+    root.walkAtRules('plugin', (atRule) => {
+      const pluginName = atRule.params.trim().slice(1, -1);
+      if (!pluginName || pluginName.startsWith('.') || path.isAbsolute(pluginName)) return;
+      const pluginPackageJson = require.resolve(`${pluginName}/package.json`, { paths: [nodeModulesDirectory] });
+      atRule.params = JSON.stringify(path.dirname(pluginPackageJson));
+    });
+  }
+};
 
 ((config) => {
-  config.entry.main.push(entryPath);
+  if (!config.entry.main.includes(entryPath)) {
+    config.entry.main.push(entryPath);
+  }
   config.module.rules.push({
     test: /\.css$/,
     use: [
@@ -14,10 +30,9 @@ const entryPath = buildDirectory + 'processedResources/js/main/' + mainCssFile;
         options: {
           postcssOptions: {
             plugins: [
-              require('postcss-import')({
-                path: [buildDirectory + 'js/node_modules']
-              }),
-              require('@tailwindcss/postcss')
+              require('postcss-import')({ path: [nodeModulesDirectory] }),
+              resolveTailwindPluginsFromKotlinJsNodeModules,
+              require('@tailwindcss/postcss')({ base: jsBuildDirectory })
             ]
           }
         }
